@@ -12,7 +12,7 @@ class CartList(CustomLoginRequiredMixin, generics.ListAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartListSerializer
 
-    #get request
+    #get request for the cart list
     def get(self, request, *args, **kwargs):
         self.queryset = Cart.objects.order_by('-created_at').filter(user=request.login_user)
         return self.list(request, *args, **kwargs)
@@ -23,7 +23,7 @@ class CartAdd(CustomLoginRequiredMixin, generics.CreateAPIView):
     queryset = Cart.objects.all()
     serializer_class = CartListSerializer
 
-    #post request
+    #post request adding to cart
     def post(self, request, *args, **kwargs):
         request.data['username'] = request.login_user.id
-        return self.create(request, *args, **kwargs)
+        return self.create( request, *args, **kwargs)
